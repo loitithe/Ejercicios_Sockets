@@ -47,12 +47,21 @@ public class Main {
     }
 
     //REALIZA UN PROGRAMA SERVIDOR TCP QUE ACEPTE DOS CLIENTES, MOSTRAR PARA CADA CLIENTE CONECTADO SUS PUERTOS LOCAL Y REMOTO. IMPLEMENTAR EL PROGRAMA CLIENTE , DONDE SE MUESTRE LOS PUERTOS LOCALES Y REMOTOS A LOS QUE SE ENCUENTRE CONECTADO, ASI COMO LA IP DE LA MAQUINA REMOTA A LA QUE SE CONECTA
-    public static void ejercicio3(){
+    public static void ejercicio3() {
         TCPServidor servidor = new TCPServidor();
         TCPCliente cliente = new TCPCliente();
     }
 
+    // CREA UN PROGRAMA CLIENTE QUE INTRODUZCA POR TECLADO UN NUMERO ENTERO Y SE LO ENVIE AL SERVIDOR. EL SERVIDOR LE DEVOLVERA EL CUADRADO DEL NUMERO
+    public static void ejercicio4() {
+        Ejercicio4_server ejercicio4Server = new Ejercicio4_server();
+        Ejercicio4_cliente ejercicio4_cliente = new Ejercicio4_cliente();
+    }
 
+    //CREA UN PROGRAMA SERVIDOR QUE PUEDA ATENDER HASTA 3 CLIENTES. DEBE ENVIAR A CADA CLIENTE UN MENSAJE INDICANDO EL NUMERO DE CLIENTE QUE ES. ESTE NUMERO SERA 1,2 o 3. EL CLIENTE MOSTRARA
+    public static void ejercicio5(){
+
+    }
     // muestra información de la URL u
     private static void infoWeb(URL url) {
         System.out.println(url.toString() + "\n" + url.getProtocol() + "\n" + url.getHost() + "\n" + url.getPort() + "\n" + url.getFile() + "\n" + url.getUserInfo() + "\n" + url.getPath() + "\n" + url.getAuthority() + "\n" + url.getQuery());
@@ -71,13 +80,13 @@ public class Main {
     }
 
 
-
     public static void main(String[] args) {
         sc = new Scanner(System.in);
         //  ejercicio1();
         ejercicio2();
 
     }
+
     public static String pedirString(String mensaje) {
         while (true) {
             System.out.println(mensaje);
