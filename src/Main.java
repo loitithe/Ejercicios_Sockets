@@ -1,4 +1,9 @@
 
+import Boletin1.Ejercicio4_cliente;
+import Boletin1.Ejercicio4_server;
+import Boletin1.TCPCliente;
+import Boletin1.TCPServidor;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -60,7 +65,8 @@ public class Main {
 
     //CREA UN PROGRAMA SERVIDOR QUE PUEDA ATENDER HASTA 3 CLIENTES. DEBE ENVIAR A CADA CLIENTE UN MENSAJE INDICANDO EL NUMERO DE CLIENTE QUE ES. ESTE NUMERO SERA 1,2 o 3. EL CLIENTE MOSTRARA
     public static void ejercicio5(){
-
+        TCPServidor tcpServidor = new TCPServidor();
+  //      Boletin1.TCPCliente tcpCliente= new Boletin1.TCPCliente();
     }
     // muestra información de la URL u
     private static void infoWeb(URL url) {
@@ -83,8 +89,8 @@ public class Main {
     public static void main(String[] args) {
         sc = new Scanner(System.in);
         //  ejercicio1();
-        ejercicio2();
-
+        //ejercicio2();
+        ejercicio5();
     }
 
     public static String pedirString(String mensaje) {

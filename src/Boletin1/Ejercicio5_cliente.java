@@ -1,6 +1,8 @@
+package Boletin1;
+
 import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.Socket;
 
 public class Ejercicio5_cliente {
@@ -10,9 +12,8 @@ public class Ejercicio5_cliente {
         System.out.println("Iniciando cliente ... ");
         try {
             Socket cliente = new Socket(Host, puerto);
-
-
-            DataInputStream flujoEntrada = new DataInputStream(cliente.getInputStream());
+            InputStream aux = cliente.getInputStream();
+            DataInputStream flujoEntrada = new DataInputStream(aux);
             System.out.println(flujoEntrada.readInt());
 
             cliente.close();
