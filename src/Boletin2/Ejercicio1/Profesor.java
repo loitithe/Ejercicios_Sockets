@@ -1,22 +1,10 @@
 package Boletin2.Ejercicio1;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
 /**
- * Crea las siguientes clases con los siguientes atributos, los constructores y los métodos get y
- * set necesarios:
- * Clase Asignatura:
- * int id;
- * String nombreAsig;
- * Clase Especialidad:
- * int id;
- * String nombreEsp;
- * Clase Profesor:
- * int idProfesor;
- * String nombre;
- * Asignatura [] asignaturas;
- * Especialidad esp;
- * Un profesor podrá impartir hasta 3 asignaturas.
+ * Un profesor podrá impartir hasta 3 asignaturas. // comprobacion del set asignaturas
  * Utilizando sockets TCP, implementar un programa servidor que inicialice un array de 5 objetos
  * de tipo Profesor. El servidor aceptará conexiones de clientes en un bucle infinito. Cada vez
  * que se conecte un cliente, el servidor le asignará un id, que empezará en 1 e irá
@@ -27,10 +15,10 @@ import java.util.Arrays;
  * Si el idProfesor no se encuentra registrado, el servidor le devolverá un objeto Profesor con
  * datos vacíos
  */
-public class Profesor {
+public class Profesor implements Serializable {
     int idProfesor;
     String nombre;
-    Asignatura[]asignaturas;
+    Asignatura[] asignaturas;
     Especialidad esp;
 
     public Profesor(int idProfesor, String nombre, Asignatura[] asignaturas, Especialidad esp) {
@@ -39,6 +27,10 @@ public class Profesor {
         this.nombre = nombre;
         this.asignaturas = asignaturas;
         this.esp = esp;
+    }
+
+    public Profesor() {
+
     }
 
     public int getIdProfesor() {
@@ -62,7 +54,8 @@ public class Profesor {
     }
 
     public void setAsignaturas(Asignatura[] asignaturas) {
-        this.asignaturas = asignaturas;
+        if (asignaturas.length <= 2)
+            this.asignaturas = asignaturas;
     }
 
     public Especialidad getEsp() {
