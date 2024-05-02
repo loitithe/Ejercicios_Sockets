@@ -1,6 +1,8 @@
 package Boletin2.Ejercicio1;
 
-public class Especialidad {
+import java.io.Serializable;
+
+public class Especialidad implements Serializable {
     int id ;
     String nombreEsp;
 

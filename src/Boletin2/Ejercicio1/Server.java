@@ -5,80 +5,51 @@ import java.net.ServerSocket;
 import java.net.Socket;
 
 public class Server {
-    /**
-     * Un profesor podrá impartir hasta 3 asignaturas. // comprobacion del set asignaturas
-     * Utilizando sockets TCP, implementar un programa servidor que inicialice un array de 5 objetos
-     * de tipo Profesor. El servidor aceptará conexiones de clientes en un bucle infinito. Cada vez
-     * que se conecte un cliente, el servidor le asignará un id, que empezará en 1 e irá
-     * incrementándose cada vez que se conecta un nuevo cliente. El servidor recibirá del cliente un
-     * idProfesor y le devolverá el objeto Profesor asociado.
-     * Crea un programa cliente en el que se introduzca por teclado el idProfesor que se desea
-     * consultar. Dicho programa recogerá datos hasta recibir un * por parte del usuario.
-     * Si el idProfesor no se encuentra registrado, el servidor le devolverá un objeto Profesor con
-     * datos vacíos
-     */
-    public static void main(String[] args) {
-        Profesor[] profesores = new Profesor[5];
+    private static Profesor[] profesores = new Profesor[5];
+    private static int nextId = 1;
 
-        boolean existeProfesor= false;
+    public static void main(String[] args) {
+        // Inicializar array de profesores
         for (int i = 0; i < profesores.length; i++) {
             profesores[i] = new Profesor();
-            profesores[i].setIdProfesor(i);
-            profesores[i].setNombre("Profesor" + i);
-
+            profesores[i].setIdProfesor(i + 1);
         }
+
         try {
-            ServerSocket servidor = new ServerSocket(6000);
-            Cliente cliente;
+            ServerSocket serverSocket = new ServerSocket(6000);
+            System.out.println("Servidor iniciado. Esperando conexiones...");
 
-            String cadena = "";
-            InputStream entrada = null;
-            DataInputStream flujoEntrada = new DataInputStream(entrada);
-
-            OutputStream salida = null;
-            int i = 1;
             while (true) {
-                cliente = (Cliente) servidor.accept(); //Accept
-                ObjectOutputStream outObject = new ObjectOutputStream(cliente.getOutputStream());// comienza el socket y espera una conexión desde un cliente
-                cliente.setId(i++);
-                salida = cliente.getOutputStream();
-                DataOutputStream flujoSalida = new DataOutputStream(salida);
+                Socket clientSocket = serverSocket.accept();
+                System.out.println("Cliente conectado.");
 
-                while (!cadena.equals("*")) {
-                    entrada = cliente.getInputStream();
-                    flujoEntrada = new DataInputStream(entrada);
-                    cadena = flujoEntrada.readUTF();
-                    try {
-                        int caracteres = Integer.parseInt(cadena);
-                        for (int j = 0; j < profesores.length; j++) {
-                            if (profesores[j].getIdProfesor() == caracteres) {
-                               existeProfesor=true;
-                           }else{
-                                existeProfesor=false;
-                            }
+                int idCliente = nextId++;
+                ObjectOutputStream outputStream = new ObjectOutputStream(clientSocket.getOutputStream());
+                ObjectInputStream inputStream = new ObjectInputStream(clientSocket.getInputStream());
 
-                        }
+                int idProfesor = inputStream.readInt();
+                System.out.println("ID del profesor recibido: " + idProfesor); // Verificar si recibimos el ID correctamente
 
-                        if (existeProfesor) {
-                            outObject.writeObject(profesores[i-1]);
-                            System.out.println(profesores[i-1].toString() + " enviado al cliente");
-                        }else{
-                            outObject.writeObject(new Profesor());
-                        }
-                        flujoSalida.writeInt(caracteres);
-                    } catch (NumberFormatException e) {
-                    }
+                Profesor profesor = buscarProfesor(idProfesor);
+                outputStream.writeObject(profesor);
+                outputStream.flush(); // Asegurar que se envíen todos los datos al cliente
+                System.out.println("Profesor enviado al cliente."); // Verificar si estamos enviando el profesor correctamente
 
-
-                }
-                // ObjectOutputStream outObject = new ObjectOutputStream(cliente.getOutputStream());
-
-
+                // Cerrar el socket del cliente después de enviar la respuesta
+                clientSocket.close();
             }
-
-
         } catch (IOException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
+    }
+
+    private static Profesor buscarProfesor(int idProfesor) {
+        for (Profesor profesor : profesores) {
+            if (profesor.getIdProfesor() == idProfesor) {
+                return profesor;
+            }
+        }
+        // Si el profesor no se encuentra, devolver un profesor vacío
+        return new Profesor();
     }
 }
