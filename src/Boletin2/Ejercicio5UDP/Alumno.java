@@ -1,4 +1,4 @@
-package Boletin2.Ejercicio5;
+package Boletin2.Ejercicio5UDP;
 
 import java.io.Serializable;
 

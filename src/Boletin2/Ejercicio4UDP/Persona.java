@@ -1,4 +1,4 @@
-package Boletin2.Ejercicio4;
+package Boletin2.Ejercicio4UDP;
 
 import java.io.Serializable;
 
@@ -7,6 +7,7 @@ public class Persona implements Serializable {
     private int edad;
 
     public Persona(String nombre, int edad) {
+        super();
         this.nombre = nombre;
         this.edad = edad;
     }

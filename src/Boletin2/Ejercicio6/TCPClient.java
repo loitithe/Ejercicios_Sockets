@@ -15,7 +15,7 @@ public class TCPClient {
 
             String userInput;
             do {
-                System.out.print("Introduce un mensaje (Escribe * para salir): ");
+                System.out.print("Introduce un mensaje ( * para salir): ");
                 userInput = reader.readLine();
                 out.write(userInput + "\n");
                 out.flush();

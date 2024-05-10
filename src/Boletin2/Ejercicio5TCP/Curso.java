@@ -1,10 +1,8 @@
-package Boletin2.Ejercicio5;
+package Boletin2.Ejercicio5TCP;
 
-import java.io.Serializable;
-
-public class Curso implements Serializable {
+public class Curso {
     private String id;
-    private String descripcion;
+    private   String descripcion;
 
     public Curso(String id, String descripcion) {
         this.id = id;
@@ -25,13 +23,5 @@ public class Curso implements Serializable {
 
     public void setDescripcion(String descripcion) {
         this.descripcion = descripcion;
-    }
-
-    @Override
-    public String toString() {
-        return "Curso{" +
-                "id='" + id + '\'' +
-                ", descripcion='" + descripcion + '\'' +
-                '}';
     }
 }

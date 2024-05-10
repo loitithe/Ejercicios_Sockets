@@ -3,7 +3,7 @@ import Boletin1.Ejercicio4_cliente;
 import Boletin1.Ejercicio4_server;
 import Boletin1.TCPCliente;
 import Boletin1.TCPServidor;
-import EjerciciosTeoria.Parte1;
+//import EjerciciosTeoria.Parte1;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -88,9 +88,9 @@ public class Main {
 
 
     public static void main(String[] args) {
-        sc = new Scanner(System.in);
-        Parte1 parte1 = new Parte1();
-        parte1.testInetAddres();
+//        sc = new Scanner(System.in);
+//        Parte1 parte1 = new Parte1();
+//        parte1.testInetAddres();
     }
 
     public static String pedirString(String mensaje) {

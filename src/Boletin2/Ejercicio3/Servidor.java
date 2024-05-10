@@ -10,7 +10,7 @@ import java.net.DatagramSocket;
 public class Servidor {
     public static void main(String[] args) {
         try {
-            DatagramSocket serverSocket = new DatagramSocket(12345);
+            DatagramSocket serverSocket = new DatagramSocket(6000);
             System.out.println("Servidor UDP iniciado. Esperando conexiones...");
 
             while (true) {
@@ -20,23 +20,24 @@ public class Servidor {
 
                 ByteArrayInputStream inputStream = new ByteArrayInputStream(receivePacket.getData());
                 ObjectInputStream objectInputStream = new ObjectInputStream(inputStream);
-                Numeros numeros = (Numeros) objectInputStream.readObject();
-
-                int numero = numeros.getNumero();
+                Numeros dato = (Numeros) objectInputStream.readObject();
+                int numero = dato.getNumero();
+                long cuadrado = numero*numero;
+                long cubo = cuadrado*numero;
+                dato.setCubo(cubo);
+                dato.setCuadrado(cuadrado);
                 if (numero <= 0) {
                     System.out.println("Servidor finalizado.");
                     break;
                 }
+                try( ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+                     ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream)) {
+                    objectOutputStream.writeObject(dato);
 
-                Numeros result = new Numeros(numero);
-
-                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-                ObjectOutputStream objectOutputStream = new ObjectOutputStream(outputStream);
-                objectOutputStream.writeObject(result);
-
-                byte[] sendData = outputStream.toByteArray();
-                DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, receivePacket.getAddress(), receivePacket.getPort());
-                serverSocket.send(sendPacket);
+                    byte[] sendData = outputStream.toByteArray();
+                    DatagramPacket sendPacket = new DatagramPacket(sendData, sendData.length, receivePacket.getAddress(), receivePacket.getPort());
+                    serverSocket.send(sendPacket);
+                }
             }
 
             serverSocket.close();
