@@ -23,9 +23,6 @@ public class Ejercicio5_server {
                 flujo_salida = new DataOutputStream(salida);
                 flujo_salida.writeInt(i+1);
             }
-
-
-
         } catch (IOException e) {
             e.printStackTrace();
         }
